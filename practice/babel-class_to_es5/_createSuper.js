@@ -68,7 +68,7 @@ Function.construct = function reflect_construct(target, argsList, newTarget){
 Function.createSuper = function _createSuper(Derived){
   const Super = Derived.__proto__; //다른 클래스를 상속(inherit)했다는 것을 전제로 사용
   if(typeof Super !== 'function'){ //그래도 혹시 몰라서 검사 한 번. 실수할 수도 있으니.
-    throw new TypeError('class '+Derived.name+" did not inherited any other class; cannot create a super function");
+    throw new TypeError('class '+Derived.name+" didn't inherited any other class; cannot create a super function");
   }
 
   // 원래 클래스의 super과 비슷한 역할

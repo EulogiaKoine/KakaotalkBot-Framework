@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @tested
+ */
+
 module.exports = (function(){
 const { function_starts, super_check, super_method_check } = require('./REG.js');
 
@@ -18,10 +22,11 @@ const { function_starts, super_check, super_method_check } = require('./REG.js')
  */
 function _repairConstructor(constructor, name){
     return uneval(constructor)
-            .replace(function_starts, "(function " + name + "(" + p + "){\n"
+            .replace(function_starts, "(function " + name + "($1){\n"
                                           + "_classCallCheck(this, " + name + ");\n")
+            .replace(super_method_check, "_super.$1.call(this, $2);")
             .replace(super_check, "_super.call(this, $1);")
-            .replace(super_method_check, "_super.$1.call(this, $2);");
+            .replace(/\}\)$/, 'return this;\n})');
 }
 
 

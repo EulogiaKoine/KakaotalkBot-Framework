@@ -1,3 +1,7 @@
+'use strict';
+
+module.exports = (function(){
+
 /**
  * @name prop
  * @param {String} type_or_key
@@ -5,7 +9,7 @@
  * @param {*} value
  * @return {Object}
  */
- function prop(type_or_key, key_or_value, value){
+function prop(type_or_key, key_or_value, value){
     const obj = {};
     Object.defineProperties(obj, {
         isClassHelper: {
@@ -25,7 +29,8 @@
                 value: new String(key_or_value)
             },
             value: {
-                value: value
+                value: value,
+                writable: true
             }
         });
     } else {
@@ -34,10 +39,15 @@
                 value: new String(type_or_key)
             },
             value: {
-                value: key_or_value
+                value: key_or_value,
+                writable: true
             }
         });
     }
 
     return obj;
 }
+
+
+return prop;
+})();

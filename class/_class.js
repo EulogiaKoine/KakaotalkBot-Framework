@@ -9,6 +9,7 @@ const _isUsingSuper = require('./_isUsingSuper.js');
 const _repairConstructor = require('./_repairConstructor.js');
 const _repairMethod = require('./_repairMethod.js');
 const _defineProperty = require('./_defineProperty.js');
+const _setProto = require('./setProto.js');
 
 /**
  * @name _class
@@ -34,18 +35,19 @@ function _class(name){
     } else if(args.some(v => v.name === "constructor")){
         throw new SyntaxError("there must be onle one Constructor function");
     }
+    constructor = constructor.constructor;
 
     //인자로 받은 프로토타입 필터링
     const prototype = args.filter(v => v.name === "prototype field");
 
     //부모 클래스
     let Super = args.find(v => v.name === "Super");
-    if(Super !== undefined && typeof Super.value === "function"){
+    if(Super !== undefined && typeof Super.super === "function"){
         //본인과 이름이 같은 클래스를 상속하지 않는지 검사
         if(Super.name === name){
             throw new SyntaxError("Class cannot extends itself; its name and the name of Super are the same, '"+name+"'");
         }
-        Super = Super.value;
+        Super = Super.super;
     }
 
     //클래스로 재구축
@@ -61,12 +63,13 @@ function _class(name){
             throw new SyntaxError("'_super' keyword unexpected here"); //아무것도 상속하지 않을 땐 _super 키워드 사용불가(정적 클래스 강제)
         }
 
-        //
+        Object.defineProperty(_Class, '_super', {
+            value: _super
+        });
+
+        //프로토타입 속성 정의
         for(let prop of prototype){
-            if(typeof prop.value === 'function'){
-                prop.value = eval(_repairMethod(prop, prop.key)); //_super.method(...)를 _super.method.call(this, ...)로 변환
-            }
-            _defineProperty(_Class.prototype, prop);
+            _setProto(_Class, prop);
         }
 
         return _Class;

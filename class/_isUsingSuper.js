@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @tested
+ */
+
 module.exports = (function(){
 
 const super_check_reg = require('./REG.js').super_check;

@@ -1,3 +1,7 @@
+'use strict';
+
+module.exports = (function(){
+
 /**
  * @name static
  * @param {String} type_or_key
@@ -5,7 +9,7 @@
  * @param {*} value
  * @return {Object}
  */
-function static(type_or_key, key_or_value, value){
+ function static(type_or_key, key_or_value, value){
     const obj = {};
     Object.defineProperties(obj, {
         isClassHelper: {
@@ -41,3 +45,7 @@ function static(type_or_key, key_or_value, value){
 
     return obj;
 }
+
+
+return static;
+})();

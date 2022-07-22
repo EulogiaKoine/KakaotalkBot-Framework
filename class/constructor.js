@@ -1,3 +1,7 @@
+'use strict';
+
+module.exports = (function(){
+
 /**
  * @name constructor
  * @param {Function} Constructor
@@ -23,3 +27,7 @@ function constructor(Constructor){
     });
     return obj;
 }
+
+
+return constructor;
+})();

@@ -12,9 +12,10 @@ const LIST = [
     '_repairMethod',
     'constructor',
     'inherits',
-    'interface',
     'prop',
     'REG',
+    'setProto',
+    'setStatic',
     'static'
 ].sort();
 
@@ -22,11 +23,18 @@ const OUTPUT = {};
 
 for(let name of LIST){
     Object.defineProperty(OUTPUT, name, {
-        value: require(name + '.js'),
+        value: require('./' + name + '.js'),
         enumerable: true,
         configurable: true
     });
 }
+
+
+OUTPUT.init = (function init(_global){
+    _global.classPack = this;
+    ['_class', '_extends', 'constructor', 'inherits', 'prop', 'static']
+    .forEach(v => _global[v] = this[v]);
+}).bind(OUTPUT)
 
 return OUTPUT;
 })();

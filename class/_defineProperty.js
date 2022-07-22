@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @tested
+ */
+
 module.exports = (function(){
 
 /**

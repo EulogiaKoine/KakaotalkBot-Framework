@@ -25,7 +25,7 @@ function _possibleConstructorReturn(self, call) {
 function _possibleConstructorReturn(self, call) {
   if(call && (typeof call === "object" || typeof call === "function")) { //_typeof() 함수만 미사용
     return call;
-  } else if(cal !== void 0){
+  } else if(call !== void 0){
     throw new TypeError(
       "Derived constructors may only return object or undefined"
     );

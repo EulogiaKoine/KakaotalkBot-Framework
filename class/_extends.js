@@ -1,3 +1,11 @@
+'use strict';
+
+/**
+ * @tested
+ */
+
+module.exports = (function(){
+
 /**
  * @name _extends
  * @param {Function} Super 상속할 상위 클래스
@@ -23,3 +31,7 @@ function _extends(Super){
     });
     return obj;
 }
+
+
+return _extends;
+})();

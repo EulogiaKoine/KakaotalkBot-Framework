@@ -3,8 +3,9 @@
 module.exports = (function(){
 
 const LIST = [
-    'class', // 프로젝트 실패. 사용을 권장하지 않습니다.
-    'setTimeout2'
+    'class', // 반 실패...
+    'setTimeout2',
+    'view'
 ].sort();
 
 const framework = {};
@@ -17,6 +18,17 @@ for(let sub of LIST){
     });
 }
 
+
+function init(global){
+    for(let sub of LIST){
+        this[sub].init(global);
+    }
+}
+Object.defineProperty(framework, 'init', {
+    value: init.bind(framework),
+    enumerable: true,
+    configurable: true
+});
 
 return framework;
 })();
